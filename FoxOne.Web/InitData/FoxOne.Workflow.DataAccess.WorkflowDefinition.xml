@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ArrayOfWorkflowDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <WorkflowDefinition>
+    <Id>2</Id>
+    <RentId>0</RentId>
+    <Name>请假申请流程</Name>
+    <Description />
+    <Status>Enabled</Status>
+    <Width>1000</Width>
+    <Height>600</Height>
+  </WorkflowDefinition>
+</ArrayOfWorkflowDefinition>

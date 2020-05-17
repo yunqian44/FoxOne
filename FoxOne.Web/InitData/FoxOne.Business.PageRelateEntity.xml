@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ArrayOfPageRelateEntity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PageRelateEntity>
+    <Id>68544c6e-9b75-495d-b575-b965da79782d</Id>
+    <RentId>1</RentId>
+    <PageId>form_reimbursementapplyEdit</PageId>
+    <RelateUrl>/Page/form_reimbursementapplydetailList?reimbursementapplyid=KEY</RelateUrl>
+    <TabName>费用明细</TabName>
+    <TabRank>1</TabRank>
+  </PageRelateEntity>
+</ArrayOfPageRelateEntity>

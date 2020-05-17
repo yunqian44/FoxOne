@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+    <meta charset="gbk">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>会议室预订</title>
+    <link type="text/css" rel="stylesheet" href="https://g.alicdn.com/platform/tingle-ui/2.1.1/salt-ui.min.css" />
+    <script>
+        var _config = @Html.Raw(FoxOne.Core.JSONHelper.Serialize(FoxOne.Business.OAuth.DDHelper.FetchSignPackage(HttpContext.Current.Request)))   ;
+    </script>
+</head>
+<body>
+    <div id="container"></div>
+    <script src="http://g.alicdn.com/platform/c/??zepto/1.1.6/zepto.min.js,react/0.14.3/react-with-addons.js,react/0.14.3/react-dom.min.js,react-router/2.0.0/umd/ReactRouter.min.js,fastclick/1.0.6/lib/fastclick.min.js,lie/3.0.2/dist/lie.polyfill.min.js,natty-db/1.0.2/dist/natty-db.min.js,reflux/0.3.0/dist/reflux.min.js"></script>
+    <script type="text/javascript" src="http://g.alicdn.com/dingding/open-develop/1.6.9/dingtalk.js"></script>
+    <script type="text/javascript" src="https://g.alicdn.com/platform/tingle-ui/2.1.1/salt-ui.min.js"></script>
+
+    
+</body>
+</html>

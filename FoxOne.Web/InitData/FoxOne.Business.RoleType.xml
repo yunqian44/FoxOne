@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ArrayOfRoleType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <RoleType>
+    <Id>81c8d21c-c018-4f18-979b-4c5da1d97f18</Id>
+    <RentId>0</RentId>
+    <Name>系统管理员</Name>
+    <Alias>系统管理员</Alias>
+    <Code>SystemManager</Code>
+    <Rank>0</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2016-07-22T16:55:47</LastUpdateTime>
+  </RoleType>
+  <RoleType>
+    <Id>eb924101-88a2-4cfd-befa-ba411a502aa4</Id>
+    <RentId>1</RentId>
+    <Name>部门成员</Name>
+    <Code>DEPT_MEM</Code>
+    <Rank>0</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-02-06T16:47:12</LastUpdateTime>
+  </RoleType>
+</ArrayOfRoleType>

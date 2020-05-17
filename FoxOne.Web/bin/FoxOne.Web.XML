@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FoxOne.Web</name>
+    </assembly>
+    <members>
+        <member name="T:FoxOne.Web.Controllers.UCController">
+            <summary>
+            组织架构服务接口
+            </summary>
+        </member>
+        <member name="M:FoxOne.Web.Controllers.UCController.GetAllUser">
+            <summary>
+            获取所有用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FoxOne.Web.Controllers.UCController.GetUser(System.String)">
+            <summary>
+            根据ID获取特定用户
+            </summary>
+            <param name="id">用户ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:FoxOne.Web.Controllers.UCController.GetUserByDepartmentId(System.Int32)">
+            <summary>
+            根据部门ID获取该部门的所有用户（不递归）
+            </summary>
+            <param name="id">部门ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:FoxOne.Web.Controllers.UCController.GetAllDepartment">
+            <summary>
+            获取所有部门
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FoxOne.Web.Controllers.UCController.GetDepartment(System.Int32)">
+            <summary>
+            根据部门ID获取特定部门
+            </summary>
+            <param name="id">部门ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:FoxOne.Web.Controllers.UCController.GetAllUserPermission(System.String,System.String)">
+            <summary>
+            根据系统编号及用户ID获取该用户在指定系统中的所有权限
+            </summary>
+            <param name="id">用户ID</param>
+            <param name="systemId">系统编号</param>
+            <returns></returns>
+        </member>
+        <member name="T:FoxOne.Web.Controllers.UCUser">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="T:FoxOne.Web.FoxOneTips">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.AllPage">
+            <summary>
+              Looks up a localized string similar to 所有页面.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Component_Editor">
+            <summary>
+              Looks up a localized string similar to 组件编辑器.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Ctrl_Id_Repeat">
+            <summary>
+              Looks up a localized string similar to 控件ID：{0} 重复.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Ctrl_Not_Found">
+            <summary>
+              Looks up a localized string similar to 控件ID：{0} 不存在.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.DataSource_Return_Empty">
+            <summary>
+              Looks up a localized string similar to 数据源返回0行数据.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Department_Name_Already_In_Use">
+            <summary>
+              Looks up a localized string similar to 部门名称已存在.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.InValid_Operation">
+            <summary>
+              Looks up a localized string similar to 非法操作.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Invalid_Original_Password">
+            <summary>
+              Looks up a localized string similar to 原始密码错误.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.InValid_Phone_ValidCode">
+            <summary>
+              Looks up a localized string similar to 无效的验证码.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.InValid_User_Or_Password">
+            <summary>
+              Looks up a localized string similar to 无效的用户名或密码.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.LoginId_Or_MobilePhone_Alerady_Exist">
+            <summary>
+              Looks up a localized string similar to 手机号已注册.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.LogOn">
+            <summary>
+              Looks up a localized string similar to 登 录.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Need_DataSource">
+            <summary>
+              Looks up a localized string similar to 需要为控件：{0} 指定数据源.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Need_To_Be_NoPagerListControlBase">
+            <summary>
+              Looks up a localized string similar to 控件：{0} 需要继承自NoPagerListControlBase.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Need_To_Be_Tree">
+            <summary>
+              Looks up a localized string similar to 控件：{0} 不是Tree控件.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.NewPassword_NotEqual_ConfirmPassword">
+            <summary>
+              Looks up a localized string similar to 新密码与确认密码不一致.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Only_Suppost_Table_Ctrl">
+            <summary>
+              Looks up a localized string similar to 当前操作只支持Table组件.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Parameter_Not_Found">
+            <summary>
+              Looks up a localized string similar to 参数：&apos;{0}&apos; 不能为空.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Password">
+            <summary>
+              Looks up a localized string similar to 密码.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.PassWord_Required">
+            <summary>
+              Looks up a localized string similar to 密码不能为空.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Phone_Not_Exist">
+            <summary>
+              Looks up a localized string similar to 手机号不存在.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.Role_Alerady_Exist">
+            <summary>
+              Looks up a localized string similar to 该角色已存在！.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.SqlId_Not_Found">
+            <summary>
+              Looks up a localized string similar to SqlId：&apos;{0}&apos; 不存在.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.TreeMenu">
+            <summary>
+              Looks up a localized string similar to 树型菜单.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.User_Name_Required">
+            <summary>
+              Looks up a localized string similar to 用户名不能为空.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.User_Not_Found">
+            <summary>
+              Looks up a localized string similar to 用户：&apos;{0}&apos;  不存在.
+            </summary>
+        </member>
+        <member name="P:FoxOne.Web.FoxOneTips.UserName">
+            <summary>
+              Looks up a localized string similar to 账号.
+            </summary>
+        </member>
+    </members>
+</doc>

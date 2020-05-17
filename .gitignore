@@ -1,0 +1,13 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/FoxOne.Business/obj/Debug
+/FoxOne.Controls/obj/Debug
+/FoxOne.Core/obj/Debug
+/FoxOne.Data/obj/Debug
+/FoxOne.Workflow.Business/obj/Debug
+/FoxOne.Workflow.DataAccess/obj/Debug
+/FoxOne.Web/obj/Debug
+/FoxOne.Workflow.Kernel/obj/Debug
+/.vs/FoxOne

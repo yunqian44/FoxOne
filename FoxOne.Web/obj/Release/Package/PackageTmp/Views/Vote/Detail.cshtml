@@ -1,0 +1,241 @@
+﻿@model  FoxOne.Vote.VoteEntity
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>所有投票主题</title>
+    <style>
+        html, body {
+            background-color: #EEE;
+            font-size: 12px;
+        }
+
+        h1 {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #CCC;
+        }
+
+        .container {
+            margin: 20px auto;
+            width: 900px;
+            position: relative;
+        }
+
+        .item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #FFF;
+            border: 1px solid #CCC;
+            line-height: 25px;
+        }
+
+        .user-item {
+            display: inline-block;
+            padding: 5px;
+            border: 1px dashed #CCC;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .user-item-checked {
+            background-color: green;
+            border-color: green;
+            color: white;
+        }
+
+        .dept-left {
+            float: left;
+            width: 15%;
+            color: #ec971f;
+        }
+
+        .dept-right {
+            float: left;
+            width: 83%;
+        }
+
+        a, a:link, a:visited, a:active {
+            text-decoration: none;
+            color: green;
+        }
+
+            a:hover {
+                color: red;
+            }
+
+        .comment {
+            width: 100%;
+            height: 100px;
+        }
+
+        h2 {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .select-mode {
+            color: red;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status {
+            color: #666;
+        }
+    </style>
+    <link href="~/Styles/vote.css" rel="stylesheet" />
+    @System.Web.Optimization.Scripts.Render("~/script/common.js")
+</head>
+<body>
+    <div class="container">
+        <h2><a class="btn btn-danger btn-big" style="color:white;" href="/Vote/Index">返回列表</a></h2>
+        <h1>@Model.Title</h1>
+        <p class="status">
+            发起人：@Model.CreatorUser.Name，
+            发起时间：@Model.CreateTime.ToString("yyyy年MM月dd日HH时mm分")，
+            开始时间：@Model.BeginTime.ToString("yyyy年MM月dd日HH时mm分")，
+            结束时间：@Model.EndTime.ToString("yyyy年MM月dd日HH时mm分")。
+        </p><p class="status">
+            @Model.Status
+        </p>
+        <h2>待选列表 （<span class="select-mode">@(Model.MultipleSelect ? string.Format("允许选择{0}项", Model.SelectedCount) : "只能选择一项")</span>）</h2>
+        @if (Model.BeSelected == FoxOne.Vote.SelectedType.User)
+        {
+            <div class="users">
+                @foreach (var dept in FoxOne.Core.DBContext<FoxOne.Core.IDepartment>.Instance.Where(o => !string.IsNullOrEmpty(o.ParentId)).OrderBy(o => o.Rank))
+                {
+                    <div class="item">
+                        <h2 class="dept-left">@dept.Name</h2>
+                        <div class="dept-right">
+                            @foreach (var user in dept.Member.OrderBy(o => o.Rank))
+                            {
+                                <p id="@user.Id" class="user-item">
+                                    @user.Name
+                                </p>
+                            }
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                }
+                <div style="clear:both;"></div>
+            </div>
+        }
+        else if (Model.BeSelected == FoxOne.Vote.SelectedType.RoleUser)
+        {
+            <div class="users">
+                @foreach (var role in FoxOne.Core.DBContext<FoxOne.Core.IRoleType>.Instance.FirstOrDefault(o => o.Name.Equals(Model.BeSelectedRoleName)).Roles)
+                {
+                    <div class="item">
+                        <h2 class="dept-left">@Model.BeSelectedRoleName</h2>
+                        <div class="dept-right">
+                            @foreach (var user in role.Members.OrderBy(o => o.Rank))
+                            {
+                                <p id="@user.Id" class="user-item">
+                                    @user.Name
+                                </p>
+                            }
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                }
+                <div style="clear:both;"></div>
+            </div>
+        }
+        else if (Model.BeSelected == FoxOne.Vote.SelectedType.DepartmentUser)
+        {
+            <div class="users">
+                <div class="item">
+                    <h2 class="dept-left">@Model.BeSelectedDepartmentName</h2>
+                    <div class="dept-right">
+                        @foreach (var user in FoxOne.Core.DBContext<FoxOne.Core.IDepartment>.Instance.FirstOrDefault(o => o.Name.Equals(Model.BeSelectedDepartmentName)).Member)
+                        {
+                            <p id="@user.Id" class="user-item">
+                                @user.Name
+                            </p>
+                        }
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+        }
+        else
+        {
+            <div class="users">
+                <div class="item">
+                    <h2 class="dept-left">所有部门</h2>
+                    <div class="dept-right">
+                        @foreach (var dept in FoxOne.Core.DBContext<FoxOne.Core.IDepartment>.Instance.Where(o => !string.IsNullOrEmpty(o.ParentId)).OrderBy(o => o.Rank))
+                        {
+                            <p id="@dept.Id" class="user-item">
+                                @dept.Name
+                            </p>
+                        }
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+        }
+
+        <h2>填写评论</h2>
+        <textarea id="Comment" placeholder="请输入评论内容，不能超过500字" class="comment"></textarea>
+        <div style="margin-top:10px;">
+            <input type="button" onclick="vote()" class="btn btn-big btn-success" value="提交结果" />
+        </div>
+    </div>
+    <script>
+        var voteId = '@Model.Id';
+        var multipleSelect = '@Model.MultipleSelect';
+        $(function () {
+            $(".user-item").bind("click", function () {
+                if (multipleSelect == 'False') {
+                    $(".user-item-checked").removeClass("user-item-checked");
+                    $(this).addClass("user-item-checked");
+                }
+                else {
+                    if ($(this).hasClass("user-item-checked")) {
+                        $(this).removeClass("user-item-checked");
+                    }
+                    else {
+                        $(this).addClass("user-item-checked");
+                    }
+                }
+            });
+        })
+
+        function vote() {
+            var select = $(".user-item-checked");
+            if (select.length == 0) {
+                foxOne.alert("请至少选择一项");
+                return;
+            }
+            var forUserId = [];
+            select.each(function () {
+                forUserId.push($(this).attr("id"));
+            });
+            var comment = $("#Comment").val().replace(/\ +/g, "").replace(/[\r\n]/g, "")//去掉空格换行回车
+            if (comment.length == 0) {
+                foxOne.alert("请填写评论");
+                return;
+            }
+            if (comment.length > 500) {
+                foxOne.alert("评论内容不能超过500字");
+                return;
+            }
+            var param = { VoteId: voteId, ForUserId: forUserId.join(','), Comment: comment };
+            foxOne.dataService('/Vote/Vote', param, function (res) {
+                if (res) {
+                    window.location.href = "/Vote/Result/" + voteId;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

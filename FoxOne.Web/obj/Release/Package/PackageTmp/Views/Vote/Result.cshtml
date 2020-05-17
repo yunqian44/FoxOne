@@ -1,0 +1,151 @@
+﻿@model  FoxOne.Vote.VoteEntity
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.Title</title>
+    <style>
+        html, body {
+            background-color: #EEE;
+            font-size: 12px;
+        }
+
+        h1 {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #CCC;
+        }
+
+        .container {
+            margin: 50px auto;
+            width: 900px;
+            position: relative;
+        }
+
+        .item {
+            padding: 0px 10px 0px 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #FFF;
+            border: 1px dashed #CCC;
+            line-height: 20px;
+            letter-spacing: 2px;
+            float: left;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
+        }
+
+        .user-item {
+            display: inline-block;
+            padding: 5px;
+            border: 1px solid #CCC;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #FFF;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
+            color: green;
+        }
+
+        .dept-left {
+            float: left;
+        }
+
+        .dept-right {
+            float: left;
+            color: #ec971f;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        a, a:link, a:visited, a:active {
+            text-decoration: none;
+            color: green;
+        }
+
+            a:hover {
+                color: red;
+            }
+
+        .comment {
+            width: 90%;
+            height: 50px;
+        }
+
+        .status {
+            text-align: left;
+            color: #888;
+        }
+
+        .c-left {
+            float: left;
+            width: 150px;
+        }
+
+        .c-right {
+            float: left;
+            width: 650px;
+            margin-left: 10px;
+        }
+    </style>
+    <link href="~/Styles/vote.css" rel="stylesheet" />
+    @System.Web.Optimization.Scripts.Render("~/script/common.js")
+</head>
+<body>
+    <div class="container">
+        <p><a class="btn btn-danger btn-big" style="color:white;" href="/Vote/Index">返回列表</a></p>
+        <h1>@Model.Title</h1>
+        <p class="status">
+            发起人：@Model.CreatorUser.Name，
+            发起时间：@Model.CreateTime.ToString("yyyy年MM月dd日HH时mm分")，
+            开始时间：@Model.BeginTime.ToString("yyyy年MM月dd日HH时mm分")，
+            结束时间：@Model.EndTime.ToString("yyyy年MM月dd日HH时mm分")。
+        </p><p class="status">
+            @Model.Status
+        </p>
+        <h2>投票结果</h2>
+        <div class="users">
+            @foreach (var item in Model.ForUsers.OrderByDescending(o => o.VoteCount))
+            {
+                <div class="user-item">
+                    <h2 class="dept-left">@item.UserName</h2>
+                    <div class="dept-right">
+                        @item.VoteCount 票
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            }
+            <div style="clear:both;"></div>
+            <h2>相关评论</h2>
+            @foreach (var detail in Model.Details.Where(o => !string.IsNullOrEmpty(o.Comment)).OrderBy(o => o.CreateTime))
+            {
+                <div class="item">
+                    <p class="c-left"> @detail.CreateTime.ToString("yyyy-MM-dd HH:mm")</p>
+                    <p class="c-right">@detail.Creator.Name
+                        选择了
+                        @if (Model.BeSelected == FoxOne.Vote.SelectedType.Department)
+                        {
+                            <span style="color:red;">@string.Join("，", detail.ForDepartments.Select(o => o.Name))</span>
+                        }
+                        else
+                        {
+                            <span style="color:red;">@string.Join("，", detail.ForUsers.Select(o => o.Name))</span>
+                        }
+                        ：@if (detail.DisplayComment)
+                        {
+                            @detail.Comment
+                        }
+                        else
+                        {
+                            <span style='color: #ec971f;display:inline-block;border:1px solid #ec971f;padding:3px;'>该评论已被屏蔽</span>
+                        }
+                    </p>
+                </div>
+            }
+            <div style="clear:both;"></div>
+        </div>
+    </div> 
+</body>
+</html>

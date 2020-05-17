@@ -1,0 +1,29 @@
+﻿@{Layout = null;}
+@using FoxOne.Business
+@using FoxOne.Controls
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>附件管理</title>
+    @System.Web.Optimization.Styles.Render("~/style/common.css")
+    @System.Web.Optimization.Scripts.Render("~/script/common.js")
+    @System.Web.Optimization.Scripts.Render("~/script/widget.js")
+</head>
+<body>
+
+    @if (((bool)ViewData["CanUpload"]))
+    {
+        <div class="toolbar">
+            <form action="/Attachment/Upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="file" />
+                <input type="hidden" name="relateId" id="relateId" value="@ViewData["RelateId"]" />
+                <input type="submit" class="btn btn-success btn-big" value="上传" />
+            </form>
+        </div>
+    }
+    @Html.CustomControl((ViewData["Table"] as Table))
+
+</body>
+</html>

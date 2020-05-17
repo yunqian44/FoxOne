@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D7BB5255-0F42-4C7E-92E9-BE15475B65CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FoxOne.Workflow.Business</RootNamespace>
+    <AssemblyName>FoxOne.Workflow.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activity\BaseActivity.cs" />
+    <Compile Include="Activity\BreakdownActivity.cs" />
+    <Compile Include="Activity\DispenseDeptActivity.cs" />
+    <Compile Include="Activity\EndActivity.cs" />
+    <Compile Include="Activity\ParallelEndActivity.cs" />
+    <Compile Include="Activity\ParallelStartActivity.cs" />
+    <Compile Include="Activity\ResponseActivity.cs" />
+    <Compile Include="Activity\SubflowActivity.cs" />
+    <Compile Include="Activity\WebServiceActivity.cs" />
+    <Compile Include="Actor\ActivityActor.cs" />
+    <Compile Include="Actor\BaseActor.cs" />
+    <Compile Include="Actor\ChildDepartmentActor.cs" />
+    <Compile Include="Actor\CompositeActor.cs" />
+    <Compile Include="Actor\FlowActor.cs" />
+    <Compile Include="Actor\ParallelOriginatorActor.cs" />
+    <Compile Include="Actor\ParameterRoleActor.cs" />
+    <Compile Include="Actor\ParentDepartmentActor.cs" />
+    <Compile Include="Actor\RoleActor.cs" />
+    <Compile Include="Actor\UserIDActor.cs" />
+    <Compile Include="Actor\UserSelectActor.cs" />
+    <Compile Include="Condition\ActivityCondition.cs" />
+    <Compile Include="Condition\BaseCondition.cs" />
+    <Compile Include="Condition\ChoiceCondition.cs" />
+    <Compile Include="Condition\CompositeCondition.cs" />
+    <Compile Include="Condition\DepartmentCondition.cs" />
+    <Compile Include="Condition\ParallelEndCondition.cs" />
+    <Compile Include="Condition\ParameterCondition.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkflowBuilder.cs" />
+    <Compile Include="WorkflowChoice.cs" />
+    <Compile Include="WorkflowContext.cs" />
+    <Compile Include="WorkflowHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FoxOne.Business\FoxOne.Business.csproj">
+      <Project>{da8a9090-8e89-4400-9426-dc59527e8933}</Project>
+      <Name>FoxOne.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoxOne.Core\FoxOne.Core.csproj">
+      <Project>{b6e846a3-af47-4ad5-bb01-f2a2d44540f2}</Project>
+      <Name>FoxOne.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoxOne.Data\FoxOne.Data.csproj">
+      <Project>{660c02d0-1c07-465d-ab57-da1abc84b1d7}</Project>
+      <Name>FoxOne.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoxOne.Workflow.DataAccess\FoxOne.Workflow.DataAccess.csproj">
+      <Project>{02f2d50d-e591-423c-9957-9dec6aa05fd6}</Project>
+      <Name>FoxOne.Workflow.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoxOne.Workflow.Kernel\FoxOne.Workflow.Kernel.csproj">
+      <Project>{26a7e9d1-7fc9-4f88-9433-cecaa553fa18}</Project>
+      <Name>FoxOne.Workflow.Kernel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

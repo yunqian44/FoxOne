@@ -1,0 +1,104 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+    <meta charset="gbk">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>会议室预订</title>
+    <link href="~/DDStatic/css/reset.css" rel="stylesheet" />
+    <link href="~/DDStatic/css/task.css" rel="stylesheet" />
+    @*<link type="text/css" rel="stylesheet" href="https://g.alicdn.com/platform/tingle-ui/2.1.1/salt-ui.min.css" />*@
+    <script>
+        var _config = @Html.Raw(FoxOne.Core.JSONHelper.Serialize(FoxOne.Business.OAuth.DDHelper.FetchSignPackage(HttpContext.Current.Request)))   ;
+    </script>
+</head>
+<body>
+    <div class="doc">
+        <div class="task-list">
+            <section class="itemlist" id="todolist">
+                <header class="hd">@DateTime.Now.ToString("yyyy年MM月dd日")会议室预订情况<span></span></header>
+                <div class="bd">
+                    @foreach (var item in ViewData["MeetingRoomBook"] as IList<FoxOne.Web.Controllers.MeetingRoomBookInfoView>)
+                    {
+                        <li class="item" data-id="@item.Code">
+                            <div class="wrap">
+                                <h3>
+                                    @item.Name
+                                </h3><br /><br />
+                                @foreach (var i in item.BookInfo)
+                                {
+                                    <p class="p1">@i</p>
+                                }
+                            </div>
+                        </li>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="~/Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="http://g.alicdn.com/dingding/open-develop/1.6.9/dingtalk.js"></script>
+    @*<script type="text/javascript" src="https://g.alicdn.com/platform/tingle-ui/2.1.1/salt-ui.min.js"></script>*@
+    <script src="~/DDStatic/js/fastclick.js"></script>
+    <script src="~/DDStatic/js/index.js"></script>
+    <script>
+
+        var logger = {i: function (info) {},e: function (err) {dd.device.notification.alert({message:err,title:'异常提示',buttonName:'关闭'})}};
+
+        dd.config({
+            agentId : _config.agentId,
+            corpId : _config.corpId,
+            timeStamp : _config.timeStamp,
+            nonceStr : _config.nonceStr,
+            signature : _config.signature,
+            jsApiList : [ 'runtime.info', 'biz.contact.choose',
+					'device.notification.confirm', 'device.notification.alert',
+					'device.notification.prompt', 'biz.ding.post',
+					'biz.util.openLink' ]
+        });
+
+        dd.ready(function() {
+            dd.runtime.permission.requestAuthCode({
+                corpId : _config.corpId,
+                onSuccess : function(info) {
+                    $.ajax({
+                        url : '/DD/Get/' + info.code ,
+                        type : 'GET',
+                        success : function(data, status, xhr) {
+                            var info = JSON.parse(data);
+                            dd.biz.navigation.setTitle({
+                                title: "欢迎您，"+info.Data.name,
+                                onSuccess: function(data) {
+                                },
+                                onFail: function(err) {
+                                    logger.e(JSON.stringify(err));
+                                }
+                            });
+                        },
+                        error : function(xhr, errorType, error) {
+                            logger.e(errorType + ', ' + error);
+                        }
+                    });
+
+                },
+                onFail : function(err) {
+                    logger.e('fail: ' + JSON.stringify(err));
+                }
+            });
+        });
+
+        dd.error(function(err) {
+            logger.e('dd error: ' + JSON.stringify(err));
+        });
+    </script>
+</body>
+</html>

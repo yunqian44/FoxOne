@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ArrayOfCRUDEntity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CRUDEntity>
+    <Id>wfform_leaveapproval</Id>
+    <RentId>1</RentId>
+    <PKName>Id</PKName>
+    <ValueField>Id</ValueField>
+    <TableName>wf_form_leaveapproval</TableName>
+    <InsertSQL>INSERT INTO wf_form_leaveapproval 
+(`Id`,`CreatorId`,`CreatorDeptId`,`CreateTime`,`BeginTime`,`EndTime`,`Reason`,`Type`,`RentId`,`LeaveDays`) 
+ VALUES 
+ (#Id#,#CreatorId#,#CreatorDeptId#,#CreateTime#,#BeginTime#,#EndTime#,#Reason#,#Type#,#RentId#,#LeaveDays#)</InsertSQL>
+    <UpdateSQL>UPDATE wf_form_leaveapproval SET `Id`=#Id#
+{?? ,`CreatorId`=#CreatorId# }
+{?? ,`CreatorDeptId`=#CreatorDeptId# }
+{?? ,`CreateTime`=#CreateTime# }
+{?? ,`BeginTime`=#BeginTime# }
+{?? ,`EndTime`=#EndTime# }
+{?? ,`Reason`=#Reason# }
+{?? ,`Type`=#Type# }
+{?? ,`RentId`=#RentId# }
+{?? ,`LeaveDays`=#LeaveDays# }
+ WHERE `Id`=#Id#</UpdateSQL>
+    <DeleteSQL>DELETE FROM wf_form_leaveapproval WHERE Id IN ($Id$)</DeleteSQL>
+    <GetOneSQL>SELECT `Id`,
+`CreatorId`,
+`CreatorDeptId`,
+`CreateTime`,
+`BeginTime`,
+`EndTime`,
+`Reason`,
+`Type`,
+`RentId`,
+`LeaveDays` 
+ FROM wf_form_leaveapproval WHERE `Id`=#Id#</GetOneSQL>
+    <SelectSQL>SELECT `Id`,
+`CreatorId`,
+`CreatorDeptId`,
+`CreateTime`,
+`BeginTime`,
+`EndTime`,
+`Reason`,
+`Type`,
+`RentId`,
+`LeaveDays` 
+ FROM wf_form_leaveapproval WHERE 1=1 
+{? AND `Id` like '%$Id$%' } 
+{? AND `CreatorId` like '%$CreatorId$%' } 
+{? AND `CreatorDeptId` like '%$CreatorDeptId$%' } 
+{? AND DATE_FORMAT(`CreateTime`,'%Y-%m-%d') = #CreateTime# } 
+{? AND DATE_FORMAT(`BeginTime`,'%Y-%m-%d') = #BeginTime# } 
+{? AND DATE_FORMAT(`EndTime`,'%Y-%m-%d') = #EndTime# } 
+{? AND `Reason` like '%$Reason$%' } 
+{? AND `Type` like '%$Type$%' } 
+{? AND `RentId`=#RentId# } 
+{? AND `LeaveDays`=#LeaveDays# }</SelectSQL>
+    <DefaultSortExpression>CreateTime DESC</DefaultSortExpression>
+    <LastUpdateTime>2017-10-23T14:07:00</LastUpdateTime>
+  </CRUDEntity>
+</ArrayOfCRUDEntity>

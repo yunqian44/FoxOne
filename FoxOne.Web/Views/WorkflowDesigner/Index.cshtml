@@ -1,0 +1,648 @@
+﻿@model FoxOne.Workflow.Kernel.IWorkflowDefinition
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>在线流程设计器</title>
+    @System.Web.Optimization.Styles.Render("~/style/common.css")
+    <script src="~/Scripts/workflowdesign/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/workflowdesign/jquery-ui-1.8.24.min.js"></script>
+    <script src="~/Scripts/workflowdesign/jsPlumb-2.1.0.js"></script>
+    <script src="~/Scripts/modal.js"></script>
+    <script src="~/Scripts/common.js"></script>
+    <style>
+        html, body {
+            background-color: #666;
+            overflow: hidden;
+        }
+
+        .demo {
+            touch-action: none;
+        }
+
+        .window {
+            border: 1px solid #346789;
+            box-shadow: 2px 2px 19px #aaa;
+            -o-box-shadow: 2px 2px 19px #aaa;
+            -webkit-box-shadow: 2px 2px 19px #aaa;
+            -moz-box-shadow: 2px 2px 19px #aaa;
+            -moz-border-radius: 0.5em;
+            border-radius: 0.5em;
+            opacity: 0.8;
+            min-width: 60px;
+            cursor: pointer;
+            text-align: center;
+            z-index: 20;
+            position: absolute;
+            background-color: #eeeeef;
+            color: black;
+            font-family: helvetica, sans-serif;
+            padding-top: 55px;
+            font-size: 12px;
+            font-weight: bold;
+            -webkit-transition: -webkit-box-shadow 0.15s ease-in;
+            -moz-transition: -moz-box-shadow 0.15s ease-in;
+            -o-transition: -o-box-shadow 0.15s ease-in;
+            transition: box-shadow 0.15s ease-in;
+            background: transparent url('') no-repeat 12px 7px;
+        }
+
+        .flowchart .window:hover {
+            box-shadow: 2px 2px 19px #444;
+            -o-box-shadow: 2px 2px 19px #444;
+            -webkit-box-shadow: 2px 2px 19px #444;
+            -moz-box-shadow: 2px 2px 19px #444;
+            opacity: 0.6;
+        }
+
+        .flowchart .active {
+            border: 1px dotted green;
+        }
+
+        .flowchart .hover {
+            border: 1px dotted red;
+        }
+
+        .flowchart .jsplumb-connector {
+            z-index: 4;
+        }
+
+        .flowchart .jsplumb-endpoint, .endpointTargetLabel, .endpointSourceLabel {
+            z-index: 21;
+            cursor: pointer;
+        }
+
+        .flowchart .aLabel {
+            background-color: white;
+            padding: 0.4em;
+            font: 12px sans-serif;
+            color: #444;
+            z-index: 21;
+            border: 1px dotted gray;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+
+            .flowchart .aLabel.jsplumb-hover {
+                background-color: #5C96BC;
+                color: white;
+                border: 1px solid white;
+            }
+
+        .window.jsplumb-connected {
+            border: 1px solid green;
+        }
+
+        .jsplumb-drag {
+            outline: 4px solid pink !important;
+        }
+
+        path, .jsplumb-endpoint {
+            cursor: pointer;
+        }
+
+        .jsplumb-overlay {
+            background-color: transparent;
+        }
+
+        .sidebar {
+            border: 1px solid #CCC;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 200px;
+            background-color: #EEE;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        #canvas {
+            background-color: white;
+        }
+
+        #main {
+            position: absolute;
+            left: 200px;
+            top: 0px;
+        }
+
+        .window-selected {
+            border: 1px solid red;
+            color: red;
+        }
+
+        .activity-div {
+            width: 100px;
+            cursor: move;
+            border: 1px solid #eee;
+            text-align: center;
+            color: green;
+            padding-top: 50px;
+            font-size: 12px;
+            font-weight: bold;
+            background: transparent url('') no-repeat top center;
+            margin: auto;
+            margin-top: 10px;
+        }
+
+        .activity-selected {
+            background-color: white;
+            color: red;
+            border: 1px solid #ccc;
+            border-left: 1px solid #666;
+            border-top: 1px solid #666;
+        }
+
+        .input-width {
+            width: 100px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <input type="text" placeholder="画布宽" value="@Model.Width" class="form-control input-width" id="canvasWidth" /><br />
+        <input type="text" placeholder="画布高" value="@Model.Height" class="form-control input-width" id="canvasHeight" /><br />
+        <div class="btn btn-primary btn-block input-width" onclick="saveCanvas()">保存</div>
+        <div class="btn btn-default btn-block input-width" onclick="a()">水平对齐</div>
+        <div class="btn btn-default btn-block input-width" onclick="b()">垂直对齐</div>
+        <div class="activity-div" style="background-image:url('../../images/connector.png')" onclick="connect(this)">连接步骤</div>
+
+    </div>
+    <div id="main">
+        <div class="jtk-demo-canvas canvas-wide flowchart jtk-surface jtk-surface-nopan" id="canvas">
+        </div>
+    </div>
+
+    <script>
+        $("#canvas").css({ width: $("#canvasWidth").val(), height: $("#canvasHeight").val() }).centerScreen($("#canvasWidth").val(), $("#canvasHeight").val(), window);
+        var definitionId = '@Model.Id';
+        var windowWidth = 60;
+        var windowHeight = 60;
+        var connContext = { Connecting: false, SourceId: '', TargetId: '', AddActivity: false, AddActivityType: '', CurrentSelectedNode: null, };
+        var activityType = [
+            { type: 'ResponseActivity', name: '审批步骤' },
+            { type: 'ParallelStartActivity', name: '并行开始步骤' },
+            { type: 'ParallelEndActivity', name: '并行结束步骤' },
+            { type: 'DispenseDeptActivity', name: '分发部门步骤' },
+            { type: 'WebServiceActivity', name: '接口调用步骤' },
+            { type: 'EndActivity', name: '结束步骤' }];
+        var designerInstance = null;
+
+        function a() {
+            var pos = $(".window-selected").eq(0).position();
+            var topValue = pos.top;
+            var leftValue = pos.left;
+            $(".window-selected").each(function () {
+                pos = $(this).position();
+                if (leftValue > pos.left) {
+                    top = pos.top;
+                }
+            });
+            $(".window-selected").css("top", topValue);
+        }
+
+        function b() {
+            var pos = $(".activity-selected").eq(0).position();
+            var topValue = pos.top;
+            var leftValue = pos.left;
+            $(".activity-selected").each(function () {
+                pos = $(this).position();
+                if (topValue > pos.top) {
+                    leftValue = pos.lef;
+                }
+            });
+            $(".activity-selected").css("left", leftValue);
+        }
+
+        var connectorPaintStyle = {
+            lineWidth: 4,
+            strokeStyle: "#61B7CF", //线条颜色
+            joinstyle: "round",
+            outlineColor: "white", //线条边框颜色
+            outlineWidth: 2
+        },
+
+        connectorHoverStyle = {
+            lineWidth: 4,
+            strokeStyle: "#216477",
+            outlineWidth: 2,
+            outlineColor: "white"
+        },
+        endpointHoverStyle = {
+            fillStyle: "#216477",
+            strokeStyle: "#216477"
+        },
+
+        sourceEndpoint = {
+            endpoint: "Dot",
+            paintStyle: {
+                fillStyle: "#7AB02C",
+                radius: 7
+            },
+            isSource: true,
+            //connector: "Straight",//["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],
+            connectorStyle: connectorPaintStyle,
+            hoverPaintStyle: endpointHoverStyle,
+            connectorHoverStyle: connectorHoverStyle,
+            dragOptions: {},
+            overlays: [
+                ["Label", {
+                    location: [0.5, 1.5],
+                    label: "Drag",
+                    cssClass: "endpointSourceLabel",
+                    visible: false
+                }]
+            ]
+        },
+
+        targetEndpoint = {
+            endpoint: "Dot",
+            paintStyle: { fillStyle: "#7AB02C", radius: 7 },
+            hoverPaintStyle: endpointHoverStyle,
+            maxConnections: -1,
+            dropOptions: { hoverClass: "hover", activeClass: "active" },
+            isTarget: true,
+            overlays: [
+                ["Label", { location: [0.5, -0.5], label: "Drop", cssClass: "endpointTargetLabel", visible: false }]
+            ]
+        };
+    </script>
+
+    <script>
+        function connect(div) {
+            connContext.Connecting = true;
+            connContext.AddActivity = false;
+            connContext.AddActivityType = '';
+            $(".activity-selected").removeClass("activity-selected");
+            $(div).addClass("activity-selected");
+        }
+
+        function add(div, activity) {
+            if ($(div).hasClass("activity-selected")) {
+                $(div).removeClass("activity-selected");
+                connContext.AddActivity = false;
+                connContext.AddActivityType = "";
+            }
+            else {
+                connContext.AddActivity = true;
+                connContext.AddActivityType = activity;
+                connContext.Connecting = false;
+                $(".activity-selected").removeClass("activity-selected");
+                $(div).addClass("activity-selected");
+            }
+        }
+
+        function addNew(left, top) {
+            var url = "/PageDesigner/ComponentList";
+            var param = {};
+            param[foxOne.formViewMode] = "Insert";
+            param[foxOne.parentId] = definitionId;
+            param[foxOne.pageId] = definitionId;
+            param[foxOne.baseType] = "FoxOne.Workflow.Business.BaseActivity";
+            param[foxOne.targetId] = "Activity";
+            param.Left = left;
+            param.Top = top;
+            url = foxOne.buildUrl(url, param);
+            $.modal({
+                title: '添加流程步骤', url: url, overlayClose: true, width: 1000, height: 600, onClose: function (res) {
+                    //foxOne.alert(res);
+                }
+            });
+        }
+
+        function connNode(sourceId, targetId, instance) {
+            var sor = $("#" + sourceId);
+            var tar = $("#" + targetId);
+            if (sor.length == 0 || tar.length == 0) return;
+            var sourcePos = sor.position();
+            var targetPos = tar.position();
+            var sourceAnchor = "Right";
+            var targetAnchor = "Left";
+            if (sourceId == targetId) {
+                sourceAnchor = "TopRight";
+                targetAnchor = "TopLeft";
+                instance.addEndpoint(sourceId, sourceEndpoint, { anchor: sourceAnchor, uuid: sourceId + sourceAnchor });
+                instance.addEndpoint(targetId, targetEndpoint, { anchor: targetAnchor, uuid: targetId + targetAnchor });
+                instance.connect({ uuids: [sourceId + sourceAnchor, targetId + targetAnchor], editable: true, connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }] });
+            }
+            else {
+                if ((sourcePos.left + windowWidth) < targetPos.left) {
+                    if ((sourcePos.top + windowHeight) < targetPos.top) {
+                        sourceAnchor = "BottomRight";
+                        targetAnchor = "TopLeft";
+                    }
+                    else if (sourcePos.top > (targetPos.top + windowHeight)) {
+                        sourceAnchor = "TopRight";
+                        targetAnchor = "BottomLeft";
+                    }
+                    else {
+
+                    }
+                }
+                else if (sourcePos.left > (targetPos.left + windowWidth)) {
+                    if ((sourcePos.top + windowHeight) < targetPos.top) {
+                        sourceAnchor = "BottomLeft";
+                        targetAnchor = "TopRight";
+                    }
+                    else if (sourcePos.top > (targetPos.top + windowHeight)) {
+                        sourceAnchor = "TopLeft";
+                        targetAnchor = "BottomRight";
+                    }
+                    else {
+                        sourceAnchor = "Left";
+                        targetAnchor = "Right";
+                    }
+                }
+                else {
+                    if ((sourcePos.top + windowHeight) < targetPos.top) {
+                        sourceAnchor = "Bottom";
+                        targetAnchor = "Top";
+                    }
+                    else if (sourcePos.top > (targetPos.top + windowHeight)) {
+                        sourceAnchor = "Top";
+                        targetAnchor = "Bottom";
+                    }
+                }
+                instance.addEndpoint(sourceId, sourceEndpoint, { anchor: sourceAnchor, uuid: sourceId + sourceAnchor });
+                instance.addEndpoint(targetId, targetEndpoint, { anchor: targetAnchor, uuid: targetId + targetAnchor });
+                instance.connect({ uuids: [sourceId + sourceAnchor, targetId + targetAnchor], editable: true, connector: "Straight" });
+            }
+        }
+
+        function onWindowClick(e) {
+            var tar = $(e.target);
+            if (!tar.is("div")) {
+                tar = tar.closest("div");
+            }
+            if (connContext.Connecting) {
+                if (connContext.SourceId == '') {
+                    connContext.SourceId = tar.attr("id");
+                }
+                else {
+                    if (connContext.TargetId == '') {
+                        connContext.TargetId = tar.attr("id");
+                        var toName = tar.text();
+                        foxOne.dataService("/WorkflowDesigner/AddTran", { To: connContext.TargetId, From: connContext.SourceId, DefinitionId: definitionId, ToName: toName }, function (res) {
+                            if (res) {
+                                connNode(connContext.SourceId, connContext.TargetId, designerInstance);
+                                connContext.SourceId = '';
+                                connContext.TargetId = '';
+                            }
+                        }, "post", true);
+                    }
+                }
+            }
+            else {
+                connContext.CurrentSelectedNode = $(this);
+                //$(".window-selected").removeClass("window-selected");
+                $(this).addClass("window-selected");
+            }
+            e.stopPropagation();
+        }
+
+        function onWindowMouseUp(e) {
+            if ($(this).attr("moving")) {
+                $(this).removeAttr("moving");
+            }
+            if ($(this).attr("changePos")) {
+                console.log("mouseup" + e.offsetX);
+                var of = $(this).offset();
+                var ofParent = $(this).parent().offset();
+                var left = of.left - ofParent.left;
+                var top = of.top - ofParent.top;
+                foxOne.dataService("/WorkflowDesigner/ChangePosition", { id: $(this).attr("id"), definitionId: definitionId, left: parseInt(left), top: parseInt(top) }, function (res) {
+                    window.location.reload();
+                }, "post", true);
+                $(this).removeAttr("changePos");
+            }
+            //e.stopPropagation();
+        }
+
+        function onWindowMouseDown(e) {
+            $(this).attr("moving", true);
+            e.stopPropagation();
+        }
+
+        function onWindowMouseMove(e) {
+            if ($(this).attr("moving")) {
+                $(this).attr("changePos", true);
+            }
+            e.stopPropagation();
+        }
+
+        function onCanvasMouseUp(e) {
+            isDown = false;
+            if (isSelecting) {
+                $(".window").each(function () {
+                    var pos = $(this).position();
+                    if (pos.left > sX && pos.left < fX && pos.top > sY && pos.top < fY) {
+                        $(this).addClass("window-selected");
+                    }
+                });
+                e.stopPropagation();
+            }
+        }
+        var sX = 0, sY = 0, fX = 0, fY = 0, isDown = false, isSelecting = false;
+        function onCanvasMouseMove(e) {
+            if (isDown) {
+                isSelecting = true;
+                fX = e.offsetX;
+                fY = e.offsetY;
+            }
+        }
+        function onCanvasMouseDown(e) {
+            isDown = true;
+
+            sX = e.offsetX;
+            sY = e.offsetY;
+        }
+
+        function onCanvasClick(e) {
+            connContext.SourceId = '';
+            connContext.TargetId = '';
+            connContext.Connecting = false;
+            connContext.CurrentSelectedNode = null;
+            $(".window-selected").removeClass("window-selected");
+            if (connContext.AddActivity) {
+                foxOne.dataService("/WorkflowDesigner/AddActivity", { actiType: connContext.AddActivityType, left: e.offsetX, top: e.offsetY, definitionId: definitionId }, function (res) {
+                    var html = "<div class='window jtk-node' style=\"left:" + e.offsetX + "px;top:" + e.offsetY + "px;background-image:url('../../images/" + connContext.AddActivityType + ".png')\" id='" + res.Id + "'>" + res.Alias + "</div>"
+                    $(html).bind("click", onWindowClick).bind("mouseup", onWindowMouseUp).bind("mousemove", onWindowMouseMove).bind("mousedown", onWindowMouseDown).appendTo("#canvas");
+                }, "post", "true");
+            }
+        }
+
+        function autoSize() {
+            $("#main").css("width", $(window).width() - 200).css("height", $(window).height());
+            $(".sidebar").css("height", $(window).height());
+        }
+
+        $(function () {
+            $(document).bind("mousedown", function (e) {
+                if (e.button > 0) {
+                    connContext.SourceId = '';
+                    connContext.TargetId = '';
+                    connContext.Connecting = false;
+                    connContext.CurrentSelectedNode = null;
+                    $(".window-selected").removeClass("window-selected");
+                    connContext.AddActivity = false;
+                    connContext.AddActivityType = '';
+                    $(".activity-selected").removeClass("activity-selected");
+                    e.cancelBubble = true;
+                    e.stopPropagation();
+                    return false;
+                }
+            });
+
+            autoSize();
+            $(window).bind("resize", autoSize);
+
+            $(document).bind("keyup", function (e) {
+                if (connContext.CurrentSelectedNode != null) {
+                    if (connContext.CurrentSelectedNode.hasOwnProperty("sourceId")) {
+                        //tran
+                        var conn = connContext.CurrentSelectedNode;
+                        if (e.keyCode == 115) {
+                            //F4键，编辑属性
+                            if (conn && conn.sourceId) {
+                                var id = conn.sourceId + "_To_" + conn.targetId;
+                                var param = {};
+                                param[foxOne.ctrlId] = id;
+                                param[foxOne.pageId] = definitionId;
+                                param[foxOne.parentId] = definitionId;
+                                param[foxOne.formViewMode] = "Edit";
+                                var url = foxOne.buildUrl('/PageDesigner/ComponentEditor', param);
+                                $.modal({
+                                    title: '编辑流程迁移', url: url, width: 1000, height: 600, overlayClose: true, onClose: function (res) {
+                                        //foxOne.alert(res);
+                                    }
+                                });
+                            }
+                        }
+                        if (e.keyCode == 46 || e.keyCode == 8) {
+                            //退格 或 DEL键
+                            //if (confirm("确认删除?")) {
+                            foxOne.dataService("/WorkflowDesigner/DeleteTran", { To: conn.targetId, From: conn.sourceId, DefinitionId: definitionId }, function (res) {
+                                if (res) {
+                                    designerInstance.detach(connContext.CurrentSelectedNode);
+                                }
+                            }, "post", true);
+                            //}
+                        }
+                    }
+                    else {
+                        //activity
+                        if (e.keyCode == 46 || e.keyCode == 8) {
+                            foxOne.dataService("/WorkflowDesigner/DeleteActivity", { id: connContext.CurrentSelectedNode.attr("id"), definitionId: definitionId }, function (res) {
+                                designerInstance.detachAllConnections(connContext.CurrentSelectedNode.attr("id"));
+                                connContext.CurrentSelectedNode.remove();
+                            }, "post", true);
+                        }
+                        if (e.keyCode == 115) {
+                            //F4键，编辑属性
+                            var param = {};
+                            var acti = connContext.CurrentSelectedNode;
+                            param[foxOne.ctrlId] = acti.attr("id");
+                            param[foxOne.pageId] = definitionId;
+                            param[foxOne.parentId] = definitionId;
+                            param[foxOne.formViewMode] = "Edit";
+                            var url = foxOne.buildUrl('/PageDesigner/ComponentEditor', param);
+                            $.modal({
+                                title: '编辑流程步骤', url: url, width: 1000, height: 600, overlayClose: true, onClose: function (res) {
+                                    //foxOne.alert(res);
+                                    window.location.reload();
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+
+            foxOne.dataService("/WorkflowDesigner/Get/" + definitionId, {}, function (res) {
+                var activities = res.Activities;
+                var trans = res.Transitions;
+                var html = "";
+                $.each(activityType, function () {
+                    html += "<div class=\"activity-div\" style=\"background-image: url('../../images/FoxOne.Workflow.Business." + this.type + ".png');\" onclick=\"add(this,'FoxOne.Workflow.Business." + this.type + "')\">" + this.name + "</div>";
+                });
+                $(".sidebar").append(html);
+                html = "";
+                $.each(activities, function () {
+                    html += "<div class='window jtk-node' style=\"left:" + this.Left + "px;top:" + this.Top + "px;background-image:url('../../images/" + this.Type + ".png')\" id='" + this.Id + "'>" + this.Alias + "</div>"
+                });
+                $("#canvas").html(html).bind("mouseup", onCanvasMouseUp).bind("mousemove", onCanvasMouseMove).bind("mousedown", onCanvasMouseDown).bind("click", onCanvasClick);
+                $(".window").bind("click", onWindowClick).bind("mouseup", onWindowMouseUp).bind("mousemove", onWindowMouseMove).bind("mousedown", onWindowMouseDown);
+                jsPlumb.ready(function () {
+                    var instance = window.jsp = jsPlumb.getInstance({
+                        DragOptions: { cursor: 'pointer', zIndex: 2000 },
+                        ConnectionOverlays: [
+                            ["Arrow", {
+                                location: 1,
+                                visible: true,
+                                id: "ARROW",
+                                events: {
+                                    click: function () { alert("you clicked on the arrow overlay") }
+                                }
+                            }],
+                            ["Label", {
+                                location: 0.1,
+                                id: "label",
+                                cssClass: "aLabel",
+                                events: {
+                                    tap: function () { alert("hey"); }
+                                }
+                            }]
+                        ],
+                        Container: "canvas"
+                    });
+
+                    instance.registerConnectionType("basic", {
+                        connector: "StateMachine",
+                        paintStyle: { strokeStyle: "red", lineWidth: 4 },
+                        hoverPaintStyle: { strokeStyle: "blue" }
+                    });
+
+                    instance.batch(function () {
+                        instance.bind("connection", function (connInfo, originalEvent) {
+                            //connInfo.connection.getOverlay("label").setLabel(connInfo.connection.sourceId + "-" + connInfo.connection.targetId);
+                        });
+                        instance.draggable(jsPlumb.getSelector(".flowchart .window"), { grid: [60, 60] });
+                        instance.bind("click", function (conn, originalEvent) {
+                            connContext.CurrentSelectedNode = conn;
+                            conn.toggleType("basic");
+
+                        });
+
+                        instance.bind("dblclick", function (conn, originalEvent) {
+
+                        });
+
+                        instance.bind("connectionDrag", function (connection) {
+                            //console.log("connection " + connection.id + " is being dragged. suspendedElement is ", connection.suspendedElement, " of type ", connection.suspendedElementType);
+                        });
+
+                        instance.bind("connectionDragStop", function (conn) {
+                            //foxOne.dataService("/WorkflowDesigner/AddTran", { To: conn.targetId, From: conn.sourceId, DefinitionId: definitionId }, function () { }, "post", true);
+                        });
+
+                        instance.bind("connectionMoved", function (params) {
+                            //console.log("connection " + params.connection.id + " was moved");
+                        });
+                    });
+
+                    //jsPlumb.fire("jsPlumbDemoLoaded", instance);
+                    designerInstance = instance;
+                    $.each(trans, function () {
+                        connNode(this.From, this.To, designerInstance);
+                    });
+                });
+            }, "get", true);
+        });
+    </script>
+</body>
+
+</html>

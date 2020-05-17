@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ArrayOfWorkflowApplication xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <WorkflowApplication>
+    <Id>2</Id>
+    <RentId>1</RentId>
+    <Name>请假申请流程</Name>
+    <WorkflowId>2</WorkflowId>
+    <Type>XZ</Type>
+    <FormType>form_leaveapprovalEdit</FormType>
+    <InstanceTitleTemplate>$User.Name$的请假申请</InstanceTitleTemplate>
+    <Icon />
+    <DocUrl />
+    <Description />
+    <DepartmentType />
+    <RoleType />
+    <NeedAttachement>true</NeedAttachement>
+    <Status>Enabled</Status>
+  </WorkflowApplication>
+</ArrayOfWorkflowApplication>

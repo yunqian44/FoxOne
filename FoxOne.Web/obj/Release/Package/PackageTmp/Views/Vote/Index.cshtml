@@ -1,0 +1,146 @@
+﻿@model  IList<FoxOne.Vote.VoteEntity>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>所有投票主题</title>
+    <style>
+        html, body {
+            background-color: #EEE;
+            font-size: 12px;
+            color: green;
+        }
+
+        h1 {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #CCC;
+        }
+
+        .container {
+            margin: 50px auto;
+            width: 900px;
+            position: relative;
+        }
+
+        .item {
+            padding: 20px 10px 10px 10px;
+            margin: 20px auto;
+            border-radius: 5px;
+            background-color: #FFF;
+            border: 1px solid #CCC;
+            line-height: 25px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .status {
+            color: #666;
+        }
+
+        .status1 {
+            text-align: right;
+            position: absolute;
+            top: -5px;
+            right: 20px;
+            font-weight: bold;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .footer {
+            text-align: right;
+        }
+
+        a, a:link, a:visited, a:active {
+            text-decoration: none;
+            color: #ec971f;
+        }
+
+            a:hover {
+                color: red;
+            }
+
+        .addnew {
+        }
+
+        .user-info {
+            position: absolute;
+            top: 20px;
+            right: 0px;
+        }
+    </style>
+    <link href="~/Styles/vote.css" rel="stylesheet" />
+    @System.Web.Optimization.Scripts.Render("~/script/common.js")
+</head>
+<body>
+    <div class="container">
+        <h1>广东旭诚科技投票系统</h1>
+        <div class="user-info">
+            当前登录：@FoxOne.Business.Security.Sec.User.Name
+            [<a href="/Home/ChangePassword">修改密码</a>]
+            [<a href="/Home/LogOut">注销</a>]
+        </div>
+        <div class="addnew"><a class="btn btn-big btn-success" style="color:white;" href="/Vote/Edit">发起新的投票</a></div>
+
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model.OrderByDescending(o => o.CreateTime))
+            {
+                <div class="item">
+                    <h2>@item.Title</h2>
+                    <p class="status1">@item.Status</p>
+                    <p class="status">
+                        发起人：@item.CreatorUser.Name，
+                        结束时间：@item.EndTime.ToString("yyyy年MM月dd日HH时mm分")
+                    </p>
+                    <p class="footer">
+                        @if (item.CurrentUserFinish)
+                        {
+                            
+                            foreach (var ii in item.ForUsers.OrderByDescending(o => o.VoteCount).Take(item.SelectedCount))
+                            {
+                                <span>@ii.UserName -</span>
+                                <span>@ii.VoteCount 票</span>
+                                <span>占 @(Math.Round(((decimal)ii.VoteCount / (decimal)FoxOne.Core.DBContext<FoxOne.Core.IUser>.Instance.Count)*100,0)) %</span><br />
+                            }
+                            <a href="/Vote/Result/@item.Id">查看详细结果</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-warning btn-big" style="color:white;" href="/Vote/Detail/@item.Id">进入投票</a>
+                        }
+                        @if (item.Creator.Equals(FoxOne.Business.Security.Sec.User.Id, StringComparison.OrdinalIgnoreCase))
+                        {
+                            <a target="_blank" href="/Vote/UserWeight/@item.Id">设置用户权值</a>
+                            <a href="/Vote/Edit/@item.Id">编辑</a>
+                            <a href="#" onclick="delVote('@item.Id',this)">删除</a>
+                        }
+                    </p>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="item">
+                <p style="color:red;text-align:center;">还未发起任何投票</p>
+            </div>
+        }
+    </div>
+    <script>
+        function delVote(id, a) {
+            if (confirm("您确定删除该投票吗？")) {
+                foxOne.dataService("/Vote/Delete/" + id, {}, function (res) {
+                    if (res) {
+                        $(a).closest(".item").remove();
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

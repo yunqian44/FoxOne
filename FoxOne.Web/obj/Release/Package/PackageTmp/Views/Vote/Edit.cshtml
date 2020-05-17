@@ -1,0 +1,192 @@
+﻿@model FoxOne.Vote.VoteEntity
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>编辑投票内容</title>
+    <style>
+        html, body {
+            background-color: #EEE;
+            font-size: 12px;
+        }
+
+        h1 {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #CCC;
+        }
+
+        .container {
+            margin: 50px auto;
+            width: 900px;
+            position: relative;
+        }
+
+        .item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #FFF;
+            border: 1px dashed #CCC;
+            line-height: 25px;
+            letter-spacing: 2px;
+        }
+
+        .user-item {
+            display: inline-block;
+            padding: 5px;
+            border: 1px solid #CCC;
+            cursor: pointer;
+            width: 100px;
+            border-radius: 5px;
+            background-color: #FFF;
+        }
+
+        .dept-left {
+            float: left;
+            width: 60%;
+        }
+
+        .dept-right {
+            float: left;
+            width: 39%;
+            color: green;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        a, a:link, a:visited, a:active {
+            text-decoration: none;
+            color: green;
+        }
+
+            a:hover {
+                color: red;
+            }
+
+        .comment {
+            width: 90%;
+            height: 50px;
+        }
+
+        .status {
+            text-align: right;
+            color: #888;
+        }
+
+        p {
+            font-size: 15px;
+            font-weight: bold;
+            margin: 10px auto;
+        }
+
+        input {
+            padding: 10px;
+        }
+
+        .title {
+            width: 98%;
+            height: 200px;
+            font-size: 15px;
+            letter-spacing: 2px;
+            padding: 10px;
+        }
+    </style>
+    <link href="~/Styles/vote.css" rel="stylesheet" />
+    @System.Web.Optimization.Scripts.Render("~/script/common.js")
+</head>
+<body>
+    <div class="container">
+        <h2><a class="btn btn-danger btn-big" style="color:white;" href="/Vote/Index">返回列表</a></h2>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <h1>新增投票</h1>
+            @Html.HiddenFor(model => model.Id)
+            <p>
+                标题
+            </p>
+            <p>
+                <textarea id="Title" class="title" name="Title">@Model.Title</textarea>
+            </p>
+            <p>
+                开始时间
+            </p>
+            <p>
+                <input type="text" onclick="WdatePicker({'dateFmt':'yyyy-MM-dd HH:mm'})" value="@Model.BeginTime.ToString("yyyy-MM-dd HH:mm")" id="BeginTime" name="BeginTime" />
+            </p>
+            <p>
+                结束时间
+            </p>
+            <p>
+                <input type="text" onclick="WdatePicker({'dateFmt':'yyyy-MM-dd HH:mm'})" value="@Model.EndTime.ToString("yyyy-MM-dd HH:mm")" id="EndTime" name="EndTime" />
+            </p>
+            <p>
+                是否允许选择多个结果
+            </p>
+            <p>
+                @Html.EditorFor(model => model.MultipleSelect)
+
+                最多选择结果数：
+                <input type="text" value="@Model.SelectedCount" id="SelectedCount" name="SelectedCount" /></p>
+            <p>
+                供选择对象类型
+            </p>
+            <p>
+                <select id="BeSelected" name="BeSelected">
+                    <option value="Department">所有部门</option>
+                    <option value="User">所有用户</option>
+                    <option value="RoleUser">特定角色的用户</option>
+                    <option value="DepartmentUser">特定部门的用户</option>
+                </select>
+                @Html.DropDownList("BeSelectedRoleName")
+                @Html.DropDownList("BeSelectedDepartmentName")
+            </p>
+            <p>
+                <input type="submit" value=" 保存 " onclick="return validate();" class="btn btn-big btn-success" />
+            </p>
+        }
+    </div>
+    <script>
+        var beSelectedValue = '@Model.BeSelected';
+        $(function () {
+            $("#BeSelected").val(beSelectedValue).bind("change", onBeSelectedChange);
+            onBeSelectedChange();
+        });
+
+        function onBeSelectedChange() {
+            var selectValue = $("#BeSelected").val();
+            if (selectValue == "RoleUser") {
+                $("#BeSelectedRoleName").show();
+            }
+            else {
+                $("#BeSelectedRoleName").hide();
+            }
+            if (selectValue == "DepartmentUser") {
+                $("#BeSelectedDepartmentName").show();
+            }
+            else {
+                $("#BeSelectedDepartmentName").hide();
+            }
+        }
+
+        function validate() {
+            if ($("#Title").val() == '') {
+                alert("投票主题不能为空！");
+                return false;
+            }
+            if ($("#BeginTime").val() == '' || $("#EndTime").val() == '') {
+                alert("开始时间和结束时间不能为空！");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

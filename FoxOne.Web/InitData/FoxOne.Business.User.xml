@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <User>
+    <Id>a49f1152-8907-4174-8c17-de5c6701910b</Id>
+    <RentId>1</RentId>
+    <Name>liuhf</Name>
+    <Alias />
+    <Code />
+    <Rank>0</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-10-24T15:51:39</LastUpdateTime>
+    <LoginId>liuhf</LoginId>
+    <Password>202CB962AC59075B964B07152D234B70</Password>
+    <DepartmentId>c69dc8e8-3ed9-45f1-8f40-d404725d8986</DepartmentId>
+    <MobilePhone>18654211025</MobilePhone>
+    <QQ />
+    <Mail />
+    <Identity />
+    <Birthdate>1987-01-29T00:00:00</Birthdate>
+    <Sex>M</Sex>
+  </User>
+</ArrayOfUser>

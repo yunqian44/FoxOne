@@ -1,0 +1,413 @@
+<?xml version="1.0"?>
+<ArrayOfPermission xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Permission>
+    <Id>088b979e-6079-497c-897b-ef13348b36c9</Id>
+    <RentId>0</RentId>
+    <Name>编辑</Name>
+    <Code>DEPARTMENT_LIST_EDIT</Code>
+    <Rank>1</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2016-08-05T15:18:57</LastUpdateTime>
+    <Url>btnEdit</Url>
+    <ParentId>eba8e84f-4c48-451c-b7d6-72c33134cc54</ParentId>
+    <Behaviour />
+    <Icon />
+    <Description />
+    <Type>Control</Type>
+  </Permission>
+  <Permission>
+    <Id>0ac5868e-6ba3-4e6a-8989-cb392ffa9af0</Id>
+    <RentId>1</RentId>
+    <Name>我的待办事项</Name>
+    <Code>WorkItemList</Code>
+    <Rank>1</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T14:52:41</LastUpdateTime>
+    <Url>/Page/WorkItemList</Url>
+    <ParentId>bcc73ac1-3f9b-4bbe-8e28-95f6d8311857</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/ico_edit.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>12940e11-5d08-4b40-82d4-ab1d39b75c21</Id>
+    <RentId>1</RentId>
+    <Name>权限信息列表</Name>
+    <Code>PermissionList</Code>
+    <Rank>5</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:23:53</LastUpdateTime>
+    <Url>/Page/PermissionList</Url>
+    <ParentId>X</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/application.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>1cfe0146-30ff-426d-b63c-c0763519a161</Id>
+    <RentId>1</RentId>
+    <Name>流程应用列表</Name>
+    <Code>ApplicationList</Code>
+    <Rank>2</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:54:23</LastUpdateTime>
+    <Url>/Page/ApplicationList</Url>
+    <ParentId>d86ae5b9-55b6-4fee-b964-6d1ef01a70b9</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/icon_sitemap.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>3eed305c-ec29-4ba7-8156-ad11d56343e9</Id>
+    <RentId>1</RentId>
+    <Name>数据字典列表</Name>
+    <Code>DataDictionaryList</Code>
+    <Rank>10</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:23:38</LastUpdateTime>
+    <Url>/Page/DataDictionaryList</Url>
+    <ParentId>X</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/list.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>43fa759b-8b74-4f7b-af55-569a8c987534</Id>
+    <RentId>1</RentId>
+    <Name>数据库表</Name>
+    <Code>PageDesignTableList</Code>
+    <Rank>5</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:55:09</LastUpdateTime>
+    <Url>/PageDesigner/TableList</Url>
+    <ParentId>Y</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/list.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>5f58c2c4-c1f7-4deb-a0a9-ed80471eb932</Id>
+    <RentId>1</RentId>
+    <Name>流程定义管理列表</Name>
+    <Code>DefinitionList</Code>
+    <Rank>10</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:54:33</LastUpdateTime>
+    <Url>/Page/DefinitionList</Url>
+    <ParentId>d86ae5b9-55b6-4fee-b964-6d1ef01a70b9</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/icon_set_rule.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>70b3184f-901e-43ec-b205-b8a1fc72e72d</Id>
+    <RentId>0</RentId>
+    <Name>删除</Name>
+    <Code>DEPARTMENT_LIST_DELETE</Code>
+    <Rank>2</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2016-08-05T15:19:17</LastUpdateTime>
+    <Url>btnDelete</Url>
+    <ParentId>eba8e84f-4c48-451c-b7d6-72c33134cc54</ParentId>
+    <Behaviour />
+    <Icon />
+    <Description />
+    <Type>Control</Type>
+  </Permission>
+  <Permission>
+    <Id>71ac43ea-4f4d-4278-972b-64dcdea5d982</Id>
+    <RentId>1</RentId>
+    <Name>用户信息列表</Name>
+    <Code>UserList</Code>
+    <Rank>2</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:22:28</LastUpdateTime>
+    <Url>/Page/UserList</Url>
+    <ParentId>X</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/user.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>7f729936-863e-49a2-97fa-1b006dc8afcb</Id>
+    <RentId>0</RentId>
+    <Name>批量删除</Name>
+    <Code>DEPARTMENT_LIST_BATCH_DELETE</Code>
+    <Rank>3</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2016-08-05T15:19:36</LastUpdateTime>
+    <Url>btnBatchDelete</Url>
+    <ParentId>eba8e84f-4c48-451c-b7d6-72c33134cc54</ParentId>
+    <Behaviour />
+    <Icon />
+    <Description />
+    <Type>Control</Type>
+  </Permission>
+  <Permission>
+    <Id>7f8f9a24-6948-47e4-a3ee-553089975b7a</Id>
+    <RentId>0</RentId>
+    <Name>查看名称</Name>
+    <Code>DEPARTMENT_LIST_NAME</Code>
+    <Rank>5</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2016-08-05T15:19:55</LastUpdateTime>
+    <Url>columnName</Url>
+    <ParentId>eba8e84f-4c48-451c-b7d6-72c33134cc54</ParentId>
+    <Behaviour />
+    <Icon />
+    <Description />
+    <Type>Control</Type>
+  </Permission>
+  <Permission>
+    <Id>92cb564f-eae4-4b1b-b8ef-b528a8fc186c</Id>
+    <RentId>1</RentId>
+    <Name>增删改查列表</Name>
+    <Code>CRUDEntityList</Code>
+    <Rank>4</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:55:27</LastUpdateTime>
+    <Url>/Page/CRUDEntityList</Url>
+    <ParentId>Y</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/relate.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>95ed11e7-78d2-418b-9269-3d2bf93ae960</Id>
+    <RentId>1</RentId>
+    <Name>角色类型信息列表</Name>
+    <Code>RoleTypeList</Code>
+    <Rank>3</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:24:18</LastUpdateTime>
+    <Url>/Page/RoleTypeList</Url>
+    <ParentId>X</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/vapplication.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>b3165b22-b58f-4f40-a179-33321b40a9c0</Id>
+    <RentId>1</RentId>
+    <Name>布局信息列表</Name>
+    <Code>LayoutEntityList</Code>
+    <Rank>2</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:55:55</LastUpdateTime>
+    <Url>/Page/LayoutEntityList</Url>
+    <ParentId>Y</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/dg_view.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>bcc73ac1-3f9b-4bbe-8e28-95f6d8311857</Id>
+    <RentId>1</RentId>
+    <Name>个人工作台</Name>
+    <Code>PC_Work</Code>
+    <Rank>1</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-10-18T18:15:12</LastUpdateTime>
+    <Url />
+    <ParentId>0283b6aa-246d-4b6d-8623-7d6fc33fbea9</ParentId>
+    <Description />
+    <Type>Module</Type>
+  </Permission>
+  <Permission>
+    <Id>c9150161-a30f-4815-9e76-9f0a2d18e864</Id>
+    <RentId>1</RentId>
+    <Name>我的已办事项</Name>
+    <Code>WorkItemDoneList</Code>
+    <Rank>2</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T14:52:37</LastUpdateTime>
+    <Url>/Page/WorkItemList_Copy</Url>
+    <ParentId>bcc73ac1-3f9b-4bbe-8e28-95f6d8311857</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/ico_start.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>cc209e06-b2c3-4108-a1ce-9568678585d3</Id>
+    <RentId>1</RentId>
+    <Name>页面设计</Name>
+    <Code>PageDesignIndex</Code>
+    <Rank>1</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:55:35</LastUpdateTime>
+    <Url>/PageDesigner/Index</Url>
+    <ParentId>Y</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/icon_setting.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>eba8e84f-4c48-451c-b7d6-72c33134cc54</Id>
+    <RentId>1</RentId>
+    <Name>组织信息列表</Name>
+    <Code>DepartmentList</Code>
+    <Rank>1</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:23:13</LastUpdateTime>
+    <Url>/Page/DepartmentList</Url>
+    <ParentId>X</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/root.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>f601842d-a71f-49c6-aec7-1884d35f3d9d</Id>
+    <RentId>1</RentId>
+    <Name>外置文件列表</Name>
+    <Code>ExternalFileEntityList</Code>
+    <Rank>3</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:56:01</LastUpdateTime>
+    <Url>/Page/ExternalFileEntityList</Url>
+    <ParentId>Y</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/ico_upload.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>fb862c2a-fe7e-45cb-b31c-a715f40903c3</Id>
+    <RentId>1</RentId>
+    <Name>角色信息列表</Name>
+    <Code>RoleList</Code>
+    <Rank>4</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:23:21</LastUpdateTime>
+    <Url>/Page/RoleList</Url>
+    <ParentId>X</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/role.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>X</Id>
+    <RentId>1</RentId>
+    <Name>系统管理</Name>
+    <Code>X</Code>
+    <Rank>3</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-10-18T18:15:25</LastUpdateTime>
+    <Url />
+    <ParentId>0283b6aa-246d-4b6d-8623-7d6fc33fbea9</ParentId>
+    <Description />
+    <Type>Module</Type>
+  </Permission>
+  <Permission>
+    <Id>Y</Id>
+    <RentId>1</RentId>
+    <Name>应用设计</Name>
+    <Code>Y</Code>
+    <Rank>4</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-10-18T18:15:32</LastUpdateTime>
+    <Url />
+    <ParentId>0283b6aa-246d-4b6d-8623-7d6fc33fbea9</ParentId>
+    <Description />
+    <Type>Module</Type>
+  </Permission>
+  <Permission>
+    <Id>d86ae5b9-55b6-4fee-b964-6d1ef01a70b9</Id>
+    <RentId>1</RentId>
+    <Name>流程管理</Name>
+    <Code>Workflow</Code>
+    <Rank>2</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-10-18T18:15:48</LastUpdateTime>
+    <Url />
+    <ParentId>0283b6aa-246d-4b6d-8623-7d6fc33fbea9</ParentId>
+    <Description />
+    <Type>Module</Type>
+  </Permission>
+  <Permission>
+    <Id>74627841-b950-45d6-a15f-86fb249e8a4b</Id>
+    <RentId>1</RentId>
+    <Name>流程实例管理</Name>
+    <Code>InstanceList</Code>
+    <Rank>0</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:54:42</LastUpdateTime>
+    <Url>/Page/InstanceList</Url>
+    <ParentId>d86ae5b9-55b6-4fee-b964-6d1ef01a70b9</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/icon_page.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>389dfc20-1cfb-468b-a555-9abc56ca5554</Id>
+    <RentId>1</RentId>
+    <Name>发起流程</Name>
+    <Code>NewFlow</Code>
+    <Rank>5</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-21T16:52:22</LastUpdateTime>
+    <Url>/Page/NewFlow</Url>
+    <ParentId>bcc73ac1-3f9b-4bbe-8e28-95f6d8311857</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/icon_new.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>33cbb6f3-0267-4578-b040-eb113a465b49</Id>
+    <RentId>1</RentId>
+    <Name>密码修改</Name>
+    <Code>ChangePassword</Code>
+    <Rank>4</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-16T15:12:37</LastUpdateTime>
+    <Url>/Home/ChangePassword</Url>
+    <ParentId>bcc73ac1-3f9b-4bbe-8e28-95f6d8311857</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/ico_pause.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>4710237e-9f79-46e9-b332-836d4b0f3fde</Id>
+    <RentId>1</RentId>
+    <Name>我的知会事项</Name>
+    <Code>WorkItemList_Copy_Copy</Code>
+    <Rank>3</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-09-21T16:50:50</LastUpdateTime>
+    <Url>/Page/WorkItemList_Copy_Copy</Url>
+    <ParentId>bcc73ac1-3f9b-4bbe-8e28-95f6d8311857</ParentId>
+    <Behaviour />
+    <Icon>../images/icons/dg_view.gif</Icon>
+    <Description />
+    <Type>Page</Type>
+  </Permission>
+  <Permission>
+    <Id>0283b6aa-246d-4b6d-8623-7d6fc33fbea9</Id>
+    <RentId>1</RentId>
+    <Name>OA</Name>
+    <Code>OA</Code>
+    <Rank>1</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-10-18T18:14:52</LastUpdateTime>
+    <Url>OA</Url>
+    <ParentId />
+    <Description />
+    <Type>System</Type>
+  </Permission>
+</ArrayOfPermission>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ArrayOfDepartment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Department>
+    <Id>c69dc8e8-3ed9-45f1-8f40-d404725d8986</Id>
+    <RentId>1</RentId>
+    <Name>Root</Name>
+    <Alias>Root</Alias>
+    <Code>1</Code>
+    <Rank>1</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-10-24T15:33:48</LastUpdateTime>
+    <ParentId>c69dc8e8-3ed9-45f1-8f40-d404725d8986</ParentId>
+    <Level>1</Level>
+    <WBS>001</WBS>
+  </Department>
+  <Department>
+    <Id>7bd73d8b-11e5-48c7-8bff-0e19dc3c00ca</Id>
+    <RentId>1</RentId>
+    <Name>IT</Name>
+    <Alias>IT</Alias>
+    <Code>51503050</Code>
+    <Rank>125</Rank>
+    <Status>Enabled</Status>
+    <LastUpdateTime>2017-10-24T15:34:18</LastUpdateTime>
+    <ParentId>c69dc8e8-3ed9-45f1-8f40-d404725d8986</ParentId>
+    <Level>2</Level>
+    <WBS>001001</WBS>
+  </Department>
+</ArrayOfDepartment>

@@ -1,0 +1,154 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>用户投票权值编辑</title>
+    <style>
+        html, body {
+            background-color: #EEE;
+            font-size: 12px;
+        }
+
+        h1 {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #CCC;
+        }
+
+        .container {
+            margin: 20px auto;
+            width: 900px;
+            position: relative;
+        }
+
+        .item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #FFF;
+            border: 1px solid #CCC;
+            line-height: 25px;
+        }
+
+        .user-item {
+            display: inline-block;
+            padding: 5px;
+            background-color: green;
+            border-color: green;
+            color: white;
+        }
+
+        .user-item-checked {
+            background-color: green;
+            border-color: green;
+            color: white;
+        }
+
+        .dept-left {
+            float: left;
+            width: 15%;
+            color: #ec971f;
+        }
+
+        .dept-right {
+            float: left;
+            width: 83%;
+        }
+
+        a, a:link, a:visited, a:active {
+            text-decoration: none;
+            color: green;
+        }
+
+            a:hover {
+                color: red;
+            }
+
+        .comment {
+            width: 100%;
+            height: 100px;
+        }
+
+        h2 {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .select-mode {
+            color: red;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status {
+            color: #666;
+        }
+
+        .user-weight {
+            width: 40px;
+            color:red;
+            font-weight:bold;
+            font-size:13px;
+        }
+    </style>
+    <link href="~/Styles/vote.css" rel="stylesheet" />
+    @System.Web.Optimization.Scripts.Render("~/script/common.js")
+</head>
+<body>
+    <div class="container">
+        <h1>用户权值编辑
+        <input type="button" onclick="vote()" class="btn btn-big btn-success" value="提交结果" /></h1>
+
+        <div class="users">
+            @foreach (var dept in FoxOne.Core.DBContext<FoxOne.Core.IDepartment>.Instance.Where(o => true).OrderBy(o => o.Rank))
+            {
+                <div class="item">
+                    <h2 class="dept-left">@dept.Name</h2>
+                    <div class="dept-right">
+                        @foreach (var user in dept.Member.OrderBy(o => o.Rank))
+                        {
+                            <p class="user-item">
+                                @user.Name
+                                <input type="text" class="user-weight" id="@user.Id" value="1" />
+                            </p>
+                        }
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            }
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+    <script>
+        var voteId = '@ViewData["VoteId"]';
+        $(function () {
+            foxOne.dataService("/Vote/GetUserWeight/" + voteId, {}, function (vuws) {
+                if (vuws.length > 0) {
+                    $.each(vuws, function () {
+                        $("#" + this.UserId).val(this.Weight);
+                    });
+                }
+            });
+        });
+        function vote() {
+            var select = $(".user-weight");
+            var forUserId = [];
+            select.each(function () {
+                if ($(this).val() != "1") {
+                    forUserId.push($(this).attr("id") + "_" + $(this).val());
+                }
+            });
+            var param = { id: voteId, userWeight: forUserId.join(',') };
+            foxOne.dataService('/Vote/AddUserWeight', param, function (res) {
+                if (res) {
+                    foxOne.alert("设置成功！");
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List</title>
+    @System.Web.Optimization.Styles.Render("~/style/common.css")
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+</head>
+<body>
+    <div style="padding:10px;">
+        <table class="table table-bordered">
+            <thead>
+                <tr><th rowspan="1" style="width:50px">序号</th><th rowspan="1">名称</th><th rowspan="1">计算类</th><th rowspan="1">保留小数</th><th rowspan="1">排序号</th><th rowspan="1">操作</th></tr>
+            </thead>
+            <tbody>
+                <tr data-key="1" data-wbs="0001">
+                    <td>1</td>
+                    <td>0001</td>
+                    <td>FoxOne.Air.AvgCalc</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnDelete">删除</a>
+
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnEdit">编辑</a>
+                    </td>
+                </tr>
+
+                <tr data-key="3" data-wbs="00010001">
+                    <td>3</td>
+                    <td>00010001</td>
+                    <td>FoxOne.Air.MinCalc</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnDelete">删除</a>
+
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnEdit">编辑</a>
+                    </td>
+                </tr>
+
+                <tr data-key="4" data-wbs="00010002">
+                    <td>4</td>
+                    <td>00010002</td>
+                    <td>FoxOne.Air.CountCalc</td>
+                    <td>2</td>
+                    <td>4</td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnDelete">删除</a>
+
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnEdit">编辑</a>
+                    </td>
+                </tr>
+
+                <tr data-key="5" data-wbs="00010003">
+                    <td>5</td>
+                    <td>00010003</td>
+                    <td>FoxOne.Air.OverRateCalc</td>
+                    <td>2</td>
+                    <td>5</td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnDelete">删除</a>
+
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnEdit">编辑</a>
+                    </td>
+                </tr>
+
+                <tr data-key="6" data-wbs="00010004">
+                    <td>6</td>
+                    <td>00010004</td>
+                    <td>FoxOne.Air.IAQICalc</td>
+                    <td>2</td>
+                    <td>6</td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnDelete">删除</a>
+
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnEdit">编辑</a>
+                    </td>
+                </tr>
+
+                <tr data-key="6" data-wbs="000100020001">
+                    <td>6</td>
+                    <td>000100020001</td>
+                    <td>FoxOne.Air.IAQICalc</td>
+                    <td>2</td>
+                    <td>6</td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnDelete">删除</a>
+
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnEdit">编辑</a>
+                    </td>
+                </tr>
+
+                <tr data-key="7" data-wbs="000100020002">
+                    <td>7</td>
+                    <td>000100020002</td>
+                    <td>FoxOne.Air.AQICalc</td>
+                    <td>0</td>
+                    <td>7</td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnDelete">删除</a>
+
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnEdit">编辑</a>
+                    </td>
+                </tr>
+
+                <tr data-key="8" data-wbs="000100020003">
+                    <td>8</td>
+                    <td>000100020003</td>
+                    <td>FoxOne.Air.AQILevelCalc</td>
+                    <td>0</td>
+                    <td>8</td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnDelete">删除</a>
+
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnEdit">编辑</a>
+                    </td>
+                </tr>
+
+                <tr data-key="9" data-wbs="000100020004">
+                    <td>9</td>
+                    <td>000100020004</td>
+                    <td>FoxOne.Air.AQITypeCalc</td>
+                    <td>0</td>
+                    <td>9</td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnDelete">删除</a>
+
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnEdit">编辑</a>
+                    </td>
+                </tr>
+
+                <tr data-key="10" data-wbs="000100020005">
+                    <td>10</td>
+                    <td>000100020005</td>
+                    <td>FoxOne.Air.PrimaryDetectionCalc</td>
+                    <td>0</td>
+                    <td>10</td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnDelete">删除</a>
+
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" target="_self" trbutton="btnEdit">编辑</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(function () {
+            var topTr = $("tr[data-wbs='0001']");
+            var tdCount = topTr.find("td").length;
+            var table = topTr.closest("table");
+            var container = table.parent();
+            var newTable = table.clone().html("").append(table.find("thead").clone());
+            addTr(topTr, newTable, table, '0001', tdCount);
+            container.append(newTable);
+            table.remove();
+            $(".cc").hide();
+        });
+
+        function getNewTr(table, wbs, tdCount) {
+            var hasChild = false;
+            var newTable = table.clone().html("").append(table.find("thead").clone());
+            table.find("tr[data-wbs]").each(function () {
+                var tr = $(this);
+                var trWbs = tr.data().wbs;
+                if (trWbs.indexOf(wbs) == 0 && trWbs.length == wbs.length + 4) {
+                    hasChild = true;
+                    addTr(tr, newTable, table, trWbs, tdCount);
+                }
+            });
+            var hr = $("<h2></h2>").css({ "border-bottom": "1px solid #CCC", "margin-bottom": "10px","text-align":"left","font-weight":"bold" }).text("子级任务");
+            var newTd = $("<td></td>").append(hr).append(newTable).css("padding", "10px").attr("colspan", tdCount);
+            var newTr = $("<tr></tr>").addClass("cc").attr("id", wbs + "_tr").append(newTd);
+            return hasChild ? newTr : undefined;
+        }
+
+        function addTr(tr, newTable, table, wbs, tdCount) {
+            newTable.append(tr);
+            var newTr = getNewTr(table, wbs, tdCount);
+            if (newTr) {
+                tr.find("td:eq(1)").append("-<span>展开</span>").bind("click", function () {
+                    var controlTr = $("#" + wbs + "_tr");
+                    if (controlTr.css("display") == 'none') {
+                        controlTr.show();
+                        $(this).find("span").html("收起");
+                    }
+                    else {
+                        controlTr.hide();
+                        $(this).find("span").html("展开");
+                    }
+                });
+                newTable.append(newTr);
+            }
+        }
+    </script>
+</body>
+</html>
